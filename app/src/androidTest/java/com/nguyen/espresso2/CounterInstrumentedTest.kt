@@ -8,8 +8,10 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
+import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesCheckNames
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesViews
 import org.hamcrest.core.AnyOf.anyOf
+import org.hamcrest.core.Is.`is`
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
@@ -43,8 +45,13 @@ class CounterInstrumentedTest {
             // AccessibilityChecks.enable().setThrowExceptionForErrors(false)
 
             // suppress only tests on a view with id countTV (a TextView)
-            AccessibilityChecks.enable().setRunChecksFromRootView(true)
-                .setSuppressingResultMatcher(matchesViews(anyOf(withId(R.id.countTV))))
+            /*AccessibilityChecks.enable().setRunChecksFromRootView(true)
+                .setSuppressingResultMatcher(matchesViews(anyOf(withId(R.id.countTV))))*/
+
+            // suppress only some suggestions
+            AccessibilityChecks.enable()
+                .setRunChecksFromRootView(true)
+                .setSuppressingResultMatcher(matchesCheckNames(`is`("TextContrastViewCheck")))
         }
     }
 }
