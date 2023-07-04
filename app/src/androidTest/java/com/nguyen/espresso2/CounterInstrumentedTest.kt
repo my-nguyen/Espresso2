@@ -1,6 +1,7 @@
 package com.nguyen.espresso2
 
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.accessibility.AccessibilityChecks
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -20,18 +21,17 @@ class CounterInstrumentedTest {
 
     @Test
     fun testIncrement() {
-        Espresso.onView(withId(R.id.add_button))
-            .perform(ViewActions.click())
-        Espresso.onView(withId(R.id.countTV))
-            .check(matches(withText("1")))
+        // interacting with a view using a ViewAction triggers the Accessibility Test Framework (ATF)
+        Espresso.onView(withId(R.id.add_button)).perform(ViewActions.click())
+        // no ViewAction, no ATF
+        Espresso.onView(withId(R.id.countTV)).check(matches(withText("1")))
     }
 
     companion object {
         @BeforeClass
         @JvmStatic
         fun enableAccessibilityChecks() {
-            // TODO: uncomment to enable accessibility checks.
-            // AccessibilityChecks.enable()
+             AccessibilityChecks.enable()
         }
     }
 }
