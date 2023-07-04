@@ -39,7 +39,7 @@ class CounterInstrumentedTest {
             // button, which is the view on which you performed a ViewAction. You'll now configure
             // your tests to examine other views in the hierarchy, without having to perform
             // additional ViewActions on those views.
-            // AccessibilityChecks.enable().setRunChecksFromRootView(true)
+             AccessibilityChecks.enable().setRunChecksFromRootView(true)
 
             // suppress all test failures but log them instead
             // AccessibilityChecks.enable().setThrowExceptionForErrors(false)
@@ -49,9 +49,9 @@ class CounterInstrumentedTest {
                 .setSuppressingResultMatcher(matchesViews(anyOf(withId(R.id.countTV))))*/
 
             // suppress only some suggestions
-            AccessibilityChecks.enable()
+            /*AccessibilityChecks.enable()
                 .setRunChecksFromRootView(true)
-                .setSuppressingResultMatcher(matchesCheckNames(`is`("TextContrastViewCheck")))
+                .setSuppressingResultMatcher(matchesCheckNames(`is`("TextContrastViewCheck")))*/
         }
     }
 }
