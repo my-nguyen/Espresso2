@@ -8,6 +8,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
+import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesViews
+import org.hamcrest.core.AnyOf.anyOf
 import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
@@ -31,7 +33,18 @@ class CounterInstrumentedTest {
         @BeforeClass
         @JvmStatic
         fun enableAccessibilityChecks() {
-             AccessibilityChecks.enable()
+            // All the accessibility checks you encountered so far were associated with the add
+            // button, which is the view on which you performed a ViewAction. You'll now configure
+            // your tests to examine other views in the hierarchy, without having to perform
+            // additional ViewActions on those views.
+            // AccessibilityChecks.enable().setRunChecksFromRootView(true)
+
+            // suppress all test failures but log them instead
+            // AccessibilityChecks.enable().setThrowExceptionForErrors(false)
+
+            // suppress only tests on a view with id countTV (a TextView)
+            AccessibilityChecks.enable().setRunChecksFromRootView(true)
+                .setSuppressingResultMatcher(matchesViews(anyOf(withId(R.id.countTV))))
         }
     }
 }
